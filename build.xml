@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="introspector" default="jar">
+
+  <property file="build.properties"/>
+
+  <path id="classpath">
+    <fileset dir="${libraries}">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <path id="classpath.test">
+    <pathelement location="${target.classes}"/>
+    <pathelement location="${target.classes.test}"/>
+    <path refid="classpath"/>
+  </path>
+
+  <target name="clean">
+    <delete dir="${target}"/>
+  </target>
+
+  <target name="init" depends="clean">
+    <mkdir dir="${target.classes}"/>
+    <mkdir dir="${target.classes.test}"/>
+    <mkdir dir="${target.test.temp}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${source}" destdir="${target.classes}" classpathref="classpath"/>
+    <javac srcdir="${source.test}" destdir="${target.classes.test}" classpathref="classpath.test"/>
+  </target>
+
+  <target name="test" depends="compile">
+    <junit printsummary="yes" haltonfailure="no" tempdir="${target.test.temp}">
+      <formatter type="xml"/>
+      <classpath refid="classpath.test"/>
+      <batchtest fork="yes" todir="${target.test.temp}">
+        <fileset dir="${target.classes.test}">
+          <include name="**/*Spec.class"/>
+        </fileset>
+      </batchtest>
+    </junit>
+    <junitreport todir="${target.test.temp}">
+      <fileset dir="${target.test.temp}">
+        <include name="TEST-*.xml"/>
+      </fileset>
+      <report format="frames" todir="${target.test.report}"/>
+    </junitreport>
+    <delete dir="${target.test.temp}"/>
+  </target>
+
+  <target name="jar" depends="test">
+    <jar destfile="${target}/${project}-${version}.jar" basedir="${target.classes}"/>
+  </target>
+
+</project>
