@@ -12,6 +12,24 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 import java.util.logging.Logger;
 
+/**
+ * Utility to find classes in the classpath.
+ *
+ * <pre>
+ *   import introspector.ClassQuery;
+ *
+ *   Set<Class> annotatedClasses = ClassQuery.
+ *    from("any.package.you.want").
+ *     searchClassesAnnotatedWith(SomeAnnotation.class);
+ *
+ *   Set<Class> implementationClasses = ClassQuery.
+ *     from("any.package.you.want").
+ *     searchClassesImplementing(SomeInterface.class);
+ * </pre>
+ *
+ * @author Tiago Fernandez
+ * @since 1.0.0
+ */
 public final class ClassQuery {
 
   private static final Logger logger = Logger.getLogger("introspector.ClassQuery");
