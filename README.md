@@ -13,22 +13,25 @@ tool might be for you. Use it at your own risk, though ;)
 
 ### ClassQuery
 
-    import introspector.ClassQuery;
+```java
+import introspector.ClassQuery;
 
-    Set<Class> annotatedClasses = ClassQuery.
-      from("any.package.you.want").
-      searchClassesAnnotatedWith(SomeAnnotation.class);
+Set<Class> annotatedClasses = ClassQuery.
+  from("any.package.you.want").
+  searchClassesAnnotatedWith(SomeAnnotation.class);
 
-    Set<Class> implementationClasses = ClassQuery.
-      from("any.package.you.want").
-      searchClassesImplementing(SomeInterface.class);
+Set<Class> implementationClasses = ClassQuery.
+  from("any.package.you.want").
+  searchClassesImplementing(SomeInterface.class);
+```
 
 ### ObjectPopulator
 
-    import introspector.ObjectPopulator;
+```java
+import introspector.ObjectPopulator;
 
-    ObjectPopulator.from(source).to(destination);
-
+ObjectPopulator.from(source).to(destination);
+```
 
 ## Notes
 
